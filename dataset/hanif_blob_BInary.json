@@ -1,5 +1,5 @@
 {
-	"name": "hanif_bob_BInary",
+	"name": "hanif_blob_BInary",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "hanif_Blob_Storage_Account",
