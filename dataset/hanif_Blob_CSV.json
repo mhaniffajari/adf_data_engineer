@@ -17,6 +17,9 @@
 			},
 			"delimiter": {
 				"type": "string"
+			},
+			"header": {
+				"type": "String"
 			}
 		},
 		"annotations": [],
@@ -42,7 +45,10 @@
 				"type": "Expression"
 			},
 			"escapeChar": "\\",
-			"firstRowAsHeader": true,
+			"firstRowAsHeader": {
+				"value": "@dataset().header",
+				"type": "Expression"
+			},
 			"quoteChar": "\""
 		},
 		"schema": []
