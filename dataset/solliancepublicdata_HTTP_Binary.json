@@ -1,0 +1,25 @@
+{
+	"name": "solliancepublicdata_HTTP_Binary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "solliancepublicdata_HTTP",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"relative_url": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().relative_url",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}
