@@ -1,0 +1,21 @@
+{
+	"name": "MSI_SQL_Server",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "MSI",
+			"database": "data",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "Windows",
+			"userName": "Hanif",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1NjJhYTZhMi05MjU3LTQ1NzAtODBiZi02NTE2ZmEyNzhmN2EiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "hanif-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
