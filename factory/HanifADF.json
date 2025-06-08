@@ -1,0 +1,9 @@
+{
+	"name": "HanifADF",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a2fef7c4-dd27-45b8-8717-1e78371814c3",
+		"tenantId": "ee586e2b-824e-433d-8a66-8349234cb9b2"
+	}
+}
