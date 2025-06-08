@@ -42,7 +42,7 @@
 				"type": "Expression"
 			},
 			"escapeChar": "\\",
-			"firstRowAsHeader": false,
+			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": []
