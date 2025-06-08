@@ -1,0 +1,9 @@
+{
+	"name": "local_to_blob",
+	"properties": {
+		"folder": {
+			"name": "Day 1"
+		},
+		"annotations": []
+	}
+}
