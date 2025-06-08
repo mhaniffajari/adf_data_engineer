@@ -26,14 +26,9 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "BinarySink",
 						"storeSettings": {
 							"type": "AzureBlobStorageWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false
@@ -49,16 +44,15 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "hanif_Blob_CSV",
+						"referenceName": "hanif_bob_BInary",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ADF",
+							"container": "adf",
 							"folder": "stage",
 							"file": {
-								"value": "@concat('CustomerSource',formatDateTime(utcNow(),'YYYYMMDD'),'.csv')",
+								"value": "@concat('CustomerSource',formatDateTime(utcNow(),'yyyyMMdd'),'.csv')",
 								"type": "Expression"
-							},
-							"delimiter": ","
+							}
 						}
 					}
 				]
@@ -104,6 +98,118 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 1
+								},
+								"sink": {
+									"name": "CustomerID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 2
+								},
+								"sink": {
+									"name": "Title",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 3
+								},
+								"sink": {
+									"name": "FirstName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 4
+								},
+								"sink": {
+									"name": "MiddleName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 5
+								},
+								"sink": {
+									"name": "LastName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 6
+								},
+								"sink": {
+									"name": "Suffix",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 7
+								},
+								"sink": {
+									"name": "CompanyName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 8
+								},
+								"sink": {
+									"name": "SalesPerson",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 9
+								},
+								"sink": {
+									"name": "EmailAddress",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 10
+								},
+								"sink": {
+									"name": "Phone",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -116,10 +222,14 @@
 						"referenceName": "hanif_Blob_CSV",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ADF",
+							"container": "adf",
 							"folder": "stage",
-							"file": "@concat('CustomerSource',formatDateTime(utcNow(),'YYYYMMDD'),'.csv')",
-							"delimiter": ","
+							"file": {
+								"value": "@concat('CustomerSource',formatDateTime(utcNow(),'yyyyMMdd'),'.csv')",
+								"type": "Expression"
+							},
+							"delimiter": "|",
+							"header": "False"
 						}
 					}
 				],
