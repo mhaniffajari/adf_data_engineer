@@ -44,7 +44,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "hanif_bob_BInary",
+						"referenceName": "hanif_blob_Binary",
 						"type": "DatasetReference",
 						"parameters": {
 							"container": "adf",
