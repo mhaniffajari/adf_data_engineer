@@ -51,7 +51,8 @@
 							"container": "adf",
 							"folder": "data",
 							"file": "201904 sales reciepts.csv",
-							"delimiter": ","
+							"delimiter": ",",
+							"header": "True"
 						}
 					}
 				],

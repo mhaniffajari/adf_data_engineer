@@ -59,7 +59,8 @@
 							"container": "adf",
 							"folder": "data",
 							"file": "application.csv",
-							"delimiter": ","
+							"delimiter": ",",
+							"header": "True"
 						}
 					}
 				]
