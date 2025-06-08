@@ -1,0 +1,30 @@
+{
+	"name": "MSI_SQL_Server",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MSI_SQL_Server",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	}
+}
