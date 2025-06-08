@@ -1,0 +1,7 @@
+{
+	"name": "hanif-IR",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Hanif Local WIndows"
+	}
+}
