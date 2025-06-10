@@ -85,7 +85,7 @@
 				"type": "Array",
 				"defaultValue": [
 					"documents.json",
-					"example_json.json"
+					"example.json"
 				]
 			}
 		},
