@@ -1,0 +1,25 @@
+{
+	"name": "hanif_Fileshare_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "hanif_FileShare",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folder": {
+				"type": "string"
+			},
+			"file": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation"
+			}
+		},
+		"schema": {}
+	}
+}
