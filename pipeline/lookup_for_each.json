@@ -63,7 +63,7 @@
 										"container": "training",
 										"folder": "data",
 										"file": {
-											"value": "@item()",
+											"value": "@item().file_name",
 											"type": "Expression"
 										}
 									}
