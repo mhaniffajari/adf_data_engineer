@@ -111,7 +111,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat('INSERT INTO dbo.file_transfer_log (file_name, file_url, ingest_time) VALUES (''', item().file_name, ''', ''https://storageacchanif.blob.core.windows.net/development/json_file/', item().file_name, ''', GETDATE());')",
+											"value": "@concat('INSERT INTO dbo.file_transfer_log (file_name, file_path, ingest_time) VALUES (''', item().file_name, ''', ''https://storageacchanif.blob.core.windows.net/development/json_file/', item().file_name, ''', GETDATE());')",
 											"type": "Expression"
 										}
 									}
@@ -147,7 +147,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat('INSERT INTO dbo.file_transfer_log (file_name, file_url, ingest_time) VALUES (''', item().file_name, ''', ''failed', ''', GETDATE());')",
+											"value": "@concat('INSERT INTO dbo.file_transfer_log (file_name, file_path, ingest_time) VALUES (''', item().file_name, ''', ''failed', ''', GETDATE());')",
 											"type": "Expression"
 										}
 									}
