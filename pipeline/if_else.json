@@ -82,6 +82,54 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "Success_Log",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "Blob_to_Blob",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"scripts": [],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
+						},
+						{
+							"name": "Failed_Log",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "Blob_to_Blob",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"scripts": [],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
 						}
 					]
 				}
