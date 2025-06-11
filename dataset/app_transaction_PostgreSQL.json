@@ -1,0 +1,30 @@
+{
+	"name": "app_transaction_PostgreSQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "app_transaction_PostgreSQL",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "PostgreSqlV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			}
+		}
+	}
+}
