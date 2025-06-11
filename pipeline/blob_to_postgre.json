@@ -1,0 +1,9 @@
+{
+	"name": "blob_to_postgre",
+	"properties": {
+		"folder": {
+			"name": "Ingest Data"
+		},
+		"annotations": []
+	}
+}
