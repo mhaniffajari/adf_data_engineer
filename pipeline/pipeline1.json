@@ -1,0 +1,62 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "REST_to_Blob",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"AbsoluteUrl": "$.$.feed.link[?(@.rel=='next')].@href"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Northwind_REST_Binary",
+						"type": "DatasetReference",
+						"parameters": {
+							"relative_url": "Customers"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "hanif_blob_Binary",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "adf",
+							"folder": "stage",
+							"file": "Customers.xml"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Practice Case Day 3"
+		},
+		"annotations": []
+	}
+}
