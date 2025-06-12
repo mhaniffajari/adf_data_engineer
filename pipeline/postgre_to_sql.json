@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Blob_to_PostgreSQL",
+				"name": "PostgreSQL_to_SQLServer",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
