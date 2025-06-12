@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "REST_to_SQL",
 	"properties": {
 		"activities": [
 			{
@@ -21,13 +21,16 @@
 						"requestInterval": "00.00:00:00.010",
 						"requestMethod": "GET",
 						"paginationRules": {
-							"AbsoluteUrl": "$.$.feed.link[?(@.rel=='next')].@href"
+							"AbsoluteUrl": "$.$.__next"
 						}
 					},
 					"sink": {
-						"type": "BinarySink",
+						"type": "JsonSink",
 						"storeSettings": {
 							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
 						}
 					},
 					"enableStaging": false
@@ -43,15 +46,211 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "hanif_blob_Binary",
+						"referenceName": "hanif_Blob_JSON",
 						"type": "DatasetReference",
 						"parameters": {
 							"container": "adf",
 							"folder": "stage",
-							"file": "Customers.xml"
+							"file": "Customers.json"
 						}
 					}
 				]
+			},
+			{
+				"name": "Blob_to_SQL",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "REST_to_Blob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE FROM StageCustomers",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['CustomerID']"
+								},
+								"sink": {
+									"name": "CustomerID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['CompanyName']"
+								},
+								"sink": {
+									"name": "CompanyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['ContactName']"
+								},
+								"sink": {
+									"name": "ContactName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['ContactTitle']"
+								},
+								"sink": {
+									"name": "ContactTitle",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['Address']"
+								},
+								"sink": {
+									"name": "Address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['City']"
+								},
+								"sink": {
+									"name": "City",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['Region']"
+								},
+								"sink": {
+									"name": "Region",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['PostalCode']"
+								},
+								"sink": {
+									"name": "PostalCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['Country']"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['Phone']"
+								},
+								"sink": {
+									"name": "Phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['Fax']"
+								},
+								"sink": {
+									"name": "Fax",
+									"type": "String"
+								}
+							}
+						],
+						"collectionReference": "$['d']['results']",
+						"mapComplexValuesToString": false
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "hanif_Blob_JSON",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "adf",
+							"folder": "stage",
+							"file": "Customers.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "hanif_SQL_Server",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "dbo",
+							"table": "StageCustomers"
+						}
+					}
+				]
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Blob_to_SQL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[Merge_StageCustomers_To_CustomersFinal]"
+				},
+				"linkedServiceName": {
+					"referenceName": "hanifajari_SQL_Server",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
