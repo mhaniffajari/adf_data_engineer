@@ -1,6 +1,42 @@
 {
-	"name": "main_pipeline_sql",
+	"name": "main_pipeline_postgre",
 	"properties": {
+		"activities": [
+			{
+				"name": "lookup_job_name",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@concat('select job_name,table name from dbo.job_map where job_name =',)",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "hanif_SQL_Server",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"parameters": {
+			"job_name": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Ingest Data"
 		},
