@@ -1,0 +1,23 @@
+{
+	"name": "Northwind_REST_Binary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Northwind_REST_API",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"relative_url": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().relative_url",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}
