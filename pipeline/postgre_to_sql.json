@@ -16,26 +16,62 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
+						"type": "PostgreSqlV2Source",
+						"queryTimeout": "02:00:00"
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "@concat('delete from dbo.',pipeline().parameters.table_name)",
+							"type": "Expression"
+						},
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
-						"referenceName": "hanif_Blob_CSV",
-						"type": "DatasetReference"
+						"referenceName": "app_transaction_PostgreSQL",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "public",
+							"table": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "hanif_SQL_Server",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "dbo",
+							"table": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"table_name": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Ingest Data"
 		},
