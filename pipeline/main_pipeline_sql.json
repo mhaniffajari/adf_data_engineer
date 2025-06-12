@@ -1,0 +1,9 @@
+{
+	"name": "main_pipeline_sql",
+	"properties": {
+		"folder": {
+			"name": "Ingest Data"
+		},
+		"annotations": []
+	}
+}
