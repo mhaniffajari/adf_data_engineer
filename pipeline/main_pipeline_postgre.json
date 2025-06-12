@@ -18,7 +18,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@concat('select job_name,table name from dbo.job_map where job_name =',)",
+							"value": "@concat('select job_name,table_name from dbo.job_map where job_name = ''', pipeline().parameters.job_name, '''')\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -30,11 +30,55 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "looping_table_name",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "lookup_job_name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('lookup_job_name').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "postgre_to_sql",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "postgre_to_sql",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": false,
+								"parameters": {
+									"table_name": {
+										"value": "@item().table_name",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
 			"job_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "app_transaction"
 			}
 		},
 		"folder": {
